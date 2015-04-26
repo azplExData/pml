@@ -1,0 +1,62 @@
+---
+title: "Practical Machine Learning Course Project Writeup"
+output: html_document
+---
+
+The goal of the project is to predict the manner in which people did the exercise. This is the **classe** variable in the dataset. The data can be found on http://groupware.les.inf.puc-rio.br/har
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=5, fig.height=2.5, comment="",
+                      echo=TRUE, warning=FALSE, message=FALSE)
+```
+```{r load_R_file, cache=FALSE, echo=FALSE}
+knitr::read_chunk('project.R')
+```
+
+# Loading the data
+
+Firstly, we load necessary libraries and set a seed for random procedures.
+
+```{r init, cache=TRUE}
+```
+
+Secondly, we load training and testing datasets.
+
+```{r load-data, cache=TRUE}
+```
+
+Finally, we subset these columns (attributes) which are complete. That is, we 
+remove those which have NAs or *#DIV/0!* string.
+
+```{r preprocess, cache=TRUE}
+```
+
+# Building the model
+
+Since the input dataset is large, we split it into training and validation
+datasets in 60% and 40% proportions, respectively.
+
+We will investigate kNN classifier. We perform reapeated cross-validation to
+choose the best *n*. Since all attibutes are numeric, we scale and center 
+features. We set accuracy as an evaluation metric in this step.
+
+```{r build-model, cache=TRUE}
+```
+
+The final value used for the model is *k* = `r knnFit$finalModel$k`. Overall
+accuracy is estimated to `r round(cmat$overall[1], 2)`.
+
+# Predicting outcomes
+
+Now we can predict from the test set.
+
+```{r predict-outcomes, cache=TRUE}
+```
+```{r show-answers, chache=TRUE}
+print(answers)
+```
+
+Finally, we save the outputs.
+
+```{r save-outputs, cache=TRUE}
+```
